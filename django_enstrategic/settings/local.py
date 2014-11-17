@@ -23,8 +23,7 @@ STATIC_ROOT = "../staticgenerated/"
 
 INSTALLED_APPS += (
     'django.contrib.admindocs',
-    'debug_toolbar', #'debug_toolbar.apps.DebugToolbarConfig', # for django 1.7 (likely not in pypy version yet?)
-    # 'debug_toolbar' # for django 1.6
+    'debug_toolbar',
 )
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = True
@@ -51,7 +50,7 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
     'debug_toolbar.panels.templates.TemplatesPanel',
     'debug_toolbar.panels.cache.CachePanel',
-    #'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]

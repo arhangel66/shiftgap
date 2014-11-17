@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 
     # Misc non django
     url(r'^404\.html$', TemplateView.as_view(template_name='404.html'), name='404'),
+    url(r'^jqueryui\.html$', TemplateView.as_view(template_name='jquery-ui.html'), name='jqueryui'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     url(r'^humans\.txt$', TemplateView.as_view(template_name='humans.txt', content_type='text/plain')),
     url(r'^crossdomain\.xml$', TemplateView.as_view(template_name='crossdomain.xml', content_type='text/xml')),
