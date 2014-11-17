@@ -1,0 +1,27 @@
+{
+  "name": "django_enstrategic",
+  "version": "0.0.0",
+  "authors": [
+    "MICHAEL MACKINNON <mike@eth0.ca>"
+  ],
+  "description": "None",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "none"
+  ],
+  "license": "Commercial",
+  "homepage": "none",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1"
+  }
+}
