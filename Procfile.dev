@@ -1,0 +1,4 @@
+web: waitress-serve --port=$PORT ensretail.deploywsgi:application
+scheduler: celery -A ensretail.celery worker -B -E --loglevel=info
+worker: celery worker --app=ensretail.celery
+console: bash

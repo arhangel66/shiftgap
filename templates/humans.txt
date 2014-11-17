@@ -3,13 +3,14 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Michael MacKinnon -- Manager -- @idonthaveatwitter
 
 # THANKS
 
-    <name>
+    Everyone
 
 # TECHNOLOGY COLOPHON
 
+    Django, PostgreSQL
     HTML5, CSS3
     jQuery, Modernizr
