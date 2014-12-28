@@ -55,7 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
 )
 
-ROOT_URLCONF = 'django_enstrategic.urls'
+ROOT_URLCONF = 'shiftgap.urls'
 
 # Internationalization
 

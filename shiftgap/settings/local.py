@@ -1,12 +1,12 @@
 from .base import *
 
-WSGI_APPLICATION = 'django_enstrategic.wsgi.application'
+WSGI_APPLICATION = 'shiftgap.wsgi.application'
 
 # Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'boiler',
+        'NAME': 'shiftgap',
     }
 }
 
