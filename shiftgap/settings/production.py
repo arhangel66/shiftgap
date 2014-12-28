@@ -5,7 +5,7 @@ from .base import *
 WSGI_APPLICATION = 'shiftgap.wsgi.application'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True if environ.get('DEBUG', 'false').lower() == 'true' else False
 
 TEMPLATE_DEBUG = False
 
