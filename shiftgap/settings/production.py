@@ -70,3 +70,6 @@ LOGGING = {
         }
     }
 }
+
+# redirect all requests to SSL
+SECURE_SSL_REDIRECT = True
