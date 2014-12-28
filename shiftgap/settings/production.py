@@ -2,53 +2,25 @@ from .base import *
 
 # THIS NEEDS TO BE UPDATED BEFORE USING IN REAL PRODUCTION
 
-WSGI_APPLICATION = 'ensretail.deploywsgi.application'
+WSGI_APPLICATION = 'shiftgap.wsgi.application'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-from os import environ
 
-ENS_PRODUCTION = environ.get('ENS_PRODUCTION', None)
-
-if ENS_PRODUCTION == 'True':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': environ.get('ENS_DB_NAME'),
-            'USER': environ.get('ENS_DB_USER'),
-            'PASSWORD': environ.get('ENS_DB_PASSWORD'),
-            'HOST': environ.get('ENS_DB_HOST'),
-            'PORT': environ.get('ENS_DB_PORT'),
-            'CONN_MAX_AGE': 1800,
-            'OPTIONS': {
-                'sslmode': 'verify-full',
-                'sslrootcert': 'ensretail/rds-ssl-ca-cert.pem'
-            }
-        },
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': environ.get('ENS_DB_NAME'),
-            'USER': environ.get('ENS_DB_USER'),
-            'PASSWORD': environ.get('ENS_DB_PASSWORD'),
-            'HOST': environ.get('ENS_DB_HOST'),
-            'PORT': environ.get('ENS_DB_PORT'),
-        },
-    }
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config()
+}
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = [
-    '.herokuapp.com',
-    # enter your custom domains here
-]
+ALLOWED_HOSTS = [x.strip() for x in environ.get('ALLOWED_HOSTS', '').split(',') if x]
 
 # Static files from heroku help
 import os
@@ -82,3 +54,20 @@ MIDDLEWARE_CLASSES += (
 #     'authorization-token',
 #     'x-csrftoken'
 # )
+
+# Output logs to heroku logplex
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+        }
+    }
+}
