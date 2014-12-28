@@ -38,7 +38,7 @@ THIRD_PARTY_APPS = (
 )
 
 YOUR_APPS = (
-
+    'apps.shifts',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + YOUR_APPS
