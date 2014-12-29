@@ -1,16 +1,18 @@
 {% extends "__base.html" %}
 
+{% block head %}
+{% endblock head %}
+
 {% block content %}
     <h1>Upcoming Shifts</h1>
 
-
-
-    <!-- Button trigger modal -->
+    <!-- bye bye modal
+    Button trigger modal
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addShiftModal">
         Add Shift
     </button>
 
-    <!-- Modal -->
+     Modal
     <div class="modal fade" id="addShiftModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -18,16 +20,19 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Add a New Shift</h4>
                 </div>
+                <form action="" method="post">
                 <div class="modal-body">
-                    {{ form.as_p }}
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Shift</button>
+                    <input type="submit" value="Add Shift" class="btn btn-primary">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <-->
 
 {% endblock content %}
 

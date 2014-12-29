@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 
@@ -11,6 +12,9 @@ class Shift(models.Model):
     def __str__(self):
         return self.employee + ' from ' + str(self.start_time) + ' to ' + str(self.end_time)
 
-    def clean(self):
-        if self.start_time >= self.end_time:
-            raise ValidationError(_('Start time cannot be greater than or equal to end time.'))
+    def get_absolute_url(self):
+        return reverse('shifts:shift_list')
+
+    # def clean(self):
+    #     if self.start_time >= self.end_time:
+    #         raise ValidationError(_('Start time cannot be greater than or equal to end time.'))

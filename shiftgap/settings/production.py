@@ -72,4 +72,9 @@ LOGGING = {
 }
 
 # redirect all requests to SSL
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True # redirect to SSL
+SECURE_FRAME_DENY = True # don't allow display in frames
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True

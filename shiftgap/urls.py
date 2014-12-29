@@ -10,7 +10,7 @@ urlpatterns = patterns('',
                        url(r'^$', TemplateView.as_view(template_name='welcome.html'), name='welcome'),
 
                        # include your apps urls files below
-                       url(r'shifts$', include('apps.shifts.urls', namespace='shifts'), name='shifts'),
+                       url(r'shifts/', include('apps.shifts.urls', namespace='shifts'), name='shifts'),
 
                        # Misc non django
                        url(r'^404\.html$', TemplateView.as_view(template_name='404.html'), name='404'),

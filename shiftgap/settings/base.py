@@ -61,7 +61,7 @@ ROOT_URLCONF = 'shiftgap.urls'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Canada/Mountain'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -121,11 +121,3 @@ AWS_CALLING_FORMAT = environ.get('AWS_CALLING_FORMAT')
 # Python 3 support lacking
 # may be able to use for uploading/saving only, don't expect to read files
 #DEFAULT_FILE_STORAGE = 'ensretail.storagebackends.s3boto.S3BotoStorage'
-
-
-SECURE_SSL_REDIRECT = True # redirect to SSL
-SECURE_FRAME_DENY = True # don't allow display in frames
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
