@@ -10,10 +10,6 @@
 {% block content %}
     <h3>New Shift</h3>
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Add Shift" class="btn btn-primary">
-    </form>
+    {% include "_generic_form.html" %}
 
 {% endblock content %}
