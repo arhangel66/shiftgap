@@ -53,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'apps.middleware.timezone.timezone_middleware.TimezoneMiddleware',
 )
 
 ROOT_URLCONF = 'shiftgap.urls'
