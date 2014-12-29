@@ -2,8 +2,7 @@
 {% load staticfiles %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static "css/jquery.datetimepicker.css" %}">
-    <script src="{% static "js/vendor/jquery.datetimepicker.js" %}"></script>
+
 
 {% endblock head %}
 
@@ -11,5 +10,23 @@
     <h3>New Shift</h3>
 
     {% include "_generic_form.html" %}
-
 {% endblock content %}
+
+{% block after %}
+    <link rel="stylesheet" href="{% static "css/jquery.datetimepicker.css" %}">
+    <script src="{% static "js/vendor/jquery.datetimepicker.js" %}"></script>
+    <script>
+    $(document).ready(
+            $('#id_start_time').datetimepicker({
+                format: 'Y-m-d H:i:00'
+            })
+
+    );
+    $(document).ready(
+            $('#id_end_time').datetimepicker({
+                format: 'Y-m-d H:i:00'
+            })
+    );
+    </script>
+
+{% endblock after %}
