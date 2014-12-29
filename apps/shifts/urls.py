@@ -4,5 +4,5 @@ from .views import ShiftListing
 
 urlpatterns = patterns('',
 
-                       url(r'^$', ShiftListing.as_view(), name='shift_listing'),
+                       url(r'^$', ShiftListing.as_view(), name='shift_list'),
                        )
