@@ -5,14 +5,32 @@
 {% endblock head %}
 
 {% block content %}
-    <h1>Upcoming Shifts</h1>
-    {% for object in object_list %}
-        {{ object }}
+    <div class="container-fluid">
+    <div class="col-md-8">
+    <h2>Upcoming Shifts</h2>
+        {% for object in object_list %}
+            {{ object.employee }}
+        {% localtime off %}
+        Start Time UTC: {{ object.start_time }} - End Time UTC: {{ object.end_time }}
+        {% endlocaltime %}
+        <br />
         {% localtime on %}
-        {{ object.start_time }} - {{ object.end_time }}
+        Start Time Local: {{ object.start_time }} - End Time Local: {{ object.end_time }}
         {% endlocaltime %}
         <hr>
     {% endfor %}
+
+    </div>
+    <div class="col-md-4">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input name="employee_name" id="id_employee_name" placeholder="Enter employee's name..." />
+        </form>
+    </div>
+
+    </div>
+
+
 
     <!-- bye bye modal
     Button trigger modal

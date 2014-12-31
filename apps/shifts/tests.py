@@ -47,3 +47,11 @@ class ShiftsTest(TestCase):
         )
         self.assertIsInstance(shift, Shift)
         self.assertEqual(shift.employee, 'Blah')
+
+    def test_can_quick_add_a_shift(self):
+        request = RequestFactory().post(reverse('shifts:shift_list'), data={'employee': 'Joe'})
+        view = ShiftListing.as_view()
+        response = view(request)
+        response.render()
+        self.assertIn(response, 'Joe')
+        self.fail('Not implemented.')
