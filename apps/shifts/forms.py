@@ -7,7 +7,7 @@ class ShiftForm(ModelForm):
 
     class Meta:
         model = Shift
-        fields = ('start_time', 'end_time', 'employee')
+        fields = ('start_time', 'end_time')
         widgets = {
             'datetime': TextInput(attrs={'blah': 'datetimepicker'})
         }
