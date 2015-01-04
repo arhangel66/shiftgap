@@ -118,7 +118,3 @@ AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_CALLING_FORMAT = environ.get('AWS_CALLING_FORMAT')
-
-# Python 3 support lacking
-# may be able to use for uploading/saving only, don't expect to read files
-#DEFAULT_FILE_STORAGE = 'ensretail.storagebackends.s3boto.S3BotoStorage'
