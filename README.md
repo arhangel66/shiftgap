@@ -1,16 +1,18 @@
-enstrategic boilerplate
-========================
+IMPORTANT
+=========
+Preferred coding styles/patterns:
 
-* Django 1.7
-* HTML5 boilerplate
-* Bootstrap
-* Jquery
-* Modernizr
+* Prefer class based views where appropriate
+* Always assume the project will be translated and at the very least use ugettext/ugettext_lazy for all python strings and 'trans' template blocks
+* Configuration in environment variables or outside the repository
+* Requirements must be specified in requirements.txt
+* Portability is important (we should be able to switch hosting environments rapidly)
+* All django apps specific to this project should go in apps/*
+* All middleware specific to this project in middleware/*
 
-
-Search for all instances of 'rename-me' and rename them to your desired project name.
-
-To create a custom settings file, create a new file in the settings subdirectory
+Custom Settings File
+=====================
+To create a custom settings file, create a new file in the shiftgap/settings subdirectory
 
 > from .base import *
 
@@ -71,18 +73,6 @@ ugettext vs ugettext_lazy generally
 * ugettext in views
 
 LOCALE_PATHS in rename-me/settings/base.py is currently set to project_root/translations.
-
-IMPORTANT
-=========
-Preferred coding styles/patterns:
-
-* Prefer class based views where appropriate
-* Always assume the project will be translated and at the very least use ugettext/ugettext_lazy for all python strings and 'trans' template blocks
-* Configuration in environment variables or outside the repository
-* Requirements must be specified in requirements.txt
-* Portability is important (we should be able to switch hosting environments rapidly)
-* All django apps specific to this project should go in apps/*
-* All middleware specific to this project in middleware/*
 
 Heroku
 ======
