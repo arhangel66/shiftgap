@@ -10,4 +10,4 @@ newrelic>=2.40
 dj-database-url
 django_nose==1.3
 django-faker==0.2
-fake-faktory==0.4.2
+fake-factory==0.4.2
