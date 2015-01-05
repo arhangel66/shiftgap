@@ -5,23 +5,54 @@
 {% endblock head %}
 
 {% block content %}
+    <style>
+        .brown{color:#56242d; font-size:12px; font-weight: bold;white-space:nowrap;}
+        .shift{background-color:#cdd3af; font-size:10px; color:#7a795b; border:1px solid #7a795b}
+        .shift_head{white-space:nowrap; background-color: #b7bf8e}
+        .shift_body{white-space:nowrap;}
+    </style>
     <div class="container-fluid">
-    <div class="col-md-8">
+    <div class="col-md-10">
     <h2>Upcoming Shifts</h2>
-        {% for object in object_list %}
-            {{ object.employee }}
-        {% localtime off %}
-        Start Time UTC: {{ object.start_time }} - End Time UTC: {{ object.end_time }}
-        {% endlocaltime %}
-        <br />
-        {% localtime on %}
-        Start Time Local: {{ object.start_time }} - End Time Local: {{ object.end_time }}
-        {% endlocaltime %}
-        <hr>
-    {% endfor %}
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-filter">
+        {% for line in table %}
+            {% if forloop.first %}
+                <thead>
+                    {% for cell in line %}
+                        <th class="brown">{% if cell %}{{ cell }}{% endif %}</th>
+                    {% endfor %}
+                </thead>
+            {% else %}
+            <tr>
+            {% for cell in line %}
+                <td>
+                    {% if forloop.first %}
+                        {% autoescape off %}{{ cell.show }}{% endautoescape %}
+                    {% else %}
+                        {% for zn in cell %}
+                            {% autoescape off %}{{ zn.show }}{% endautoescape %}<br>
+                        {% endfor %}
+                    {% endif %}
+                </td>
+            {% endfor %}
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+{#        {% for object in object_list %}#}
+{#            {{ object.employee }}#}
+{#        {% localtime off %}#}
+{#        Start Time UTC: {{ object.start_time }} - End Time UTC: {{ object.end_time }}#}
+{#        {% endlocaltime %}#}
+{#        <br />#}
+{#        {% localtime on %}#}
+{#        Start Time Local: {{ object.start_time }} - End Time Local: {{ object.end_time }}#}
+{#        {% endlocaltime %}#}
+{#        <hr>#}
+{#    {% endfor %}#}
 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
         <form action="" method="POST">
             {% csrf_token %}
             <input name="employee_name" id="id_employee_name" placeholder="Enter employee's name..." />
