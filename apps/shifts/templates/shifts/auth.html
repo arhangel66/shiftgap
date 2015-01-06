@@ -1,0 +1,41 @@
+{% extends "__base.html" %}
+{% load tz %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+ <div class="container" style="margin-top:240px;">
+        <div class="row">
+            <div class="well col-md-4 col-md-offset-4">
+                <legend>Authorization</legend>
+                {% if error %}
+                <div class="alert alert-error">
+                    <a class="close" href="" data-dismiss="alert">x</a> Wrong login or password
+                </div>
+                {% endif %}
+
+                <form method="POST" action="" role="form" accept-charset="UTF-8">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="inputlogin">Login</label>
+                        <input type="text" class="col-md-12 form-control" placeholder="Enter login" id="inputlogin" name="login" style="margin-bottom: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputpassword">Password</label>
+
+                        <input type="password" class="col-md-12 form-control" placeholder="Enter password" id="inputpassword" name="password" style="margin-bottom: 10px;">
+                    </div>
+
+                    <button type="submit" class="btn btn-block btn-success">Enter</button>
+
+                </form>
+                    or <a href="{% url 'persons:user_create' %}" type="submit" class="btn">sing up</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block after %}
+
+{% endblock after %}

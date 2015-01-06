@@ -29,9 +29,7 @@ def gen_fake_organizations(count_organizations=3):
 
 def gen_fake_users(count_user=20, organization_ids=None, timezone='', email='', name=''):
     """
-    Генерирует список словарей с случайными данными пользователей
     :param count_user:
-    phone='89090706997', email='arhangel66@yandex.ru', name='Mikhail', patronymic='Borisovich'
     :return:
     """
     if not organization_ids:

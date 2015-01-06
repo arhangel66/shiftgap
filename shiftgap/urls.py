@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
                        # include your apps urls files below
                        url(r'shifts/', include('apps.shifts.urls', namespace='shifts'), name='shifts'),
+                       url(r'personal/', include('apps.persons.urls', namespace='persons'), name='persons'),
 
                        # Misc non django
                        url(r'^404\.html$', TemplateView.as_view(template_name='404.html'), name='404'),

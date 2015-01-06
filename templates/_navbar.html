@@ -13,19 +13,18 @@
         <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="{% url 'shifts:shift_list' %}">Shifts <span class="sr-only">(current)</span></a></li>
-          <li class="active"><a href="{% url 'shifts:shift_create' %}">Create Shift<span class="sr-only">(current)</span></a></li>
+        <li><a href=''  class="load_page" data-toggle="modal" data-target="#myModal" load_page="{% url 'shifts:shift_create' %}" title="new shift">
+          New shift
+        </a></li>
+        <li class="active"></li>
+
           </ul>
 
-
-            <form class="navbar-form navbar-right" role="form">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
+            {% if request.user.id %}
+                <div class="navbar-form navbar-right" role="form" style="color:#fff">{{ request.user }} ({{ request.user.organization }})<a href="{% url 'persons:logout' %}">Logout</a></div>
+            {% else %}
+                <div class="navbar-form navbar-right" role="form" style="color:#fff"><a href="{% url 'persons:user_create' %}">Sing Up</a></div>
+            {% endif %}
         </div><!--/.navbar-collapse -->
     </div>
 </div>

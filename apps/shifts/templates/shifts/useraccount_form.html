@@ -1,0 +1,32 @@
+{% extends "__base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block content %}
+<h3>New user</h3>
+{% include "_generic_form.html" %}
+{% endblock content %}
+
+{% block after %}
+    <link rel="stylesheet" href="{% static "css/bootstrap-datetimepicker.min.css" %}">
+    <script type="text/javascript" src={% static "js/bootstrap-datetimepicker.js" %} charset="UTF-8"></script>
+    <script type="text/javascript" src={% static "js/locales/bootstrap-datetimepicker.fr.js" %} charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.form_datetime').datetimepicker({
+            //language:  'fr',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            minuteStep: 5
+        });
+    </script>
+
+
+{% endblock after %}

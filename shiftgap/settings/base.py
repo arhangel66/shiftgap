@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = (
 
 YOUR_APPS = (
     'apps.shifts',
+    'apps.persons',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + YOUR_APPS
@@ -118,3 +119,8 @@ AWS_STORAGE_BUCKET_NAME = environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_CALLING_FORMAT = environ.get('AWS_CALLING_FORMAT')
+
+LOGIN_URL = '/personal/login/'
+LOGIN_REDIRECT_URL = '/personal/'
+AUTH_PROFILE_MODULE = 'apps.shifts.UserAccount'
+CUSTOM_USER_MODEL = 'apps.shifts.UserAccount'

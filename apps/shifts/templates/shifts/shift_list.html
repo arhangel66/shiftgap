@@ -7,9 +7,11 @@
 {% block content %}
     <style>
         .brown{color:#56242d; font-size:12px; font-weight: bold;white-space:nowrap;}
-        .shift{background-color:#cdd3af; font-size:10px; color:#7a795b; border:1px solid #7a795b}
-        .shift_head{white-space:nowrap; background-color: #b7bf8e}
-        .shift_body{white-space:nowrap;}
+        .b-shift{background-color:#cdd3af; font-size:10px; color:#7a795b; border:1px solid #7a795b}
+        .b-shift__head{white-space:nowrap; background-color: #b7bf8e}
+        .b-shift_body{white-space:nowrap;}
+        .b-body-text {padding:2px}
+        .b-head-text {padding:2px}
     </style>
     <div class="container-fluid">
     <div class="col-md-10">
@@ -90,9 +92,63 @@
         </div>
     </div>
     <-->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg load_page" data-toggle="modal" data-target="#myModal" load_page="{% url 'shifts:shift_create' %}" title="new shift">
+  new shift
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+<div class="alert alert-success">
+  <a href="#" class="alert-link">...</a>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
 
 {% block after %}
+<script type="text/javascript">
+$().ready(function() {
+    $("body").delegate(".load_page", "click", function() {
+            var $modal_body = $('div.modal-body');
+            var $modal_title = $('h4.modal-title');
+            var url = $(this).attr('load_page');
+            $.get(url,
+                function(data) {
+                    $modal_title.html($(this).attr('title'));
+                    $modal_body.html(data);
+                })
+        })
 
+    $("div.modal").delegate("form#shift_form", "submit", function() {
+
+       var inp_date = $('#shift_form').serialize();
+        url = "{% url 'shifts:shift_create' %}"
+        $.post(url, inp_date,
+                function(data) {
+                    if (data.status == true) {
+                        $('div.modal .alert-success').show();
+                        $('div.modal .alert-body-success').html(data.message);
+                    }
+                    else {
+                        $('div.modal .alert-danger').show();
+                        $('div.modal .alert-body-danger').html(data.message);
+                    }
+                }, 'json');
+
+        return false
+    })
+
+})
+</script>
 {% endblock after %}

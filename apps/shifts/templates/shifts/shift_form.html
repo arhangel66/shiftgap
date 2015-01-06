@@ -1,32 +1,63 @@
-{% extends "__base.html" %}
+
 {% load staticfiles %}
 
 {% block head %}
 
-
 {% endblock head %}
 
 {% block content %}
-    <h3>New Shift</h3>
+<div class="alert alert-success" style="display: none;">
+    <div class="alert-body-success"></div>
+</div>
+<div class="alert alert-danger" style="display: none;">
+    <div class="alert-body-danger"></div>
+</div>
+    <form action="" method="post" id="shift_form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_start_time">Start time</label>
 
-    {% include "_generic_form.html" %}
+        <div class="input-group date form_datetime col-md-8" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="dtp_input1" >
+            {{ form.start_time }}
+            <span class="input-group-addon"  onclick="$(this).prev().val('')"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="id_end_time">End time</label>
+        <div class="input-group date form_datetime col-md-8" data-date-format="yyyy-mm-dd hh:ii:00" data-link-field="end_time">
+            {{ form.end_time }}
+            <span class="input-group-addon"  onclick="$(this).prev().val('')"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="id_employee">Employee</label>
+        <div class="input-group col-md-8">
+            {{ form.employee }}
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+</form>
 {% endblock content %}
 
 {% block after %}
-    <link rel="stylesheet" href="{% static "css/jquery.datetimepicker.css" %}">
-    <script src="{% static "js/vendor/jquery.datetimepicker.js" %}"></script>
-    <script>
-    $(document).ready(
-            $('#id_start_time').datetimepicker({
-                format: 'Y-m-d H:i:00'
-            })
-
-    );
-    $(document).ready(
-            $('#id_end_time').datetimepicker({
-                format: 'Y-m-d H:i:00'
-            })
-    );
+    <link rel="stylesheet" href="{% static "css/bootstrap-datetimepicker.min.css" %}">
+    <script type="text/javascript" src={% static "js/bootstrap-datetimepicker.js" %} charset="UTF-8"></script>
+    <script type="text/javascript" src={% static "js/locales/bootstrap-datetimepicker.fr.js" %} charset="UTF-8"></script>
+    <script type="text/javascript">
+        $('.form_datetime').datetimepicker({
+            //language:  'fr',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            minuteStep: 5
+        });
     </script>
+
 
 {% endblock after %}

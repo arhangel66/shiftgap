@@ -1,8 +1,13 @@
 import datetime
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template import RequestContext
 from django.views.generic.list import MultipleObjectMixin
 import pytz
 
-from django.shortcuts import render, redirect
+import simplejson as json
+from django.shortcuts import render, redirect, render_to_response
 from django.views.generic import ListView, CreateView
 from django.contrib import messages
 from django.core.urlresolvers import reverse
@@ -32,6 +37,7 @@ def get_list_days_of_week(dat=datetime.datetime.now(tz=pytz.utc)):
         d = dat + datetime.timedelta(days=i)
         list_of_dates.append(d)
     return list_of_dates
+
 
 
 class ShiftListing(ListView):
@@ -79,8 +85,7 @@ class ShiftListing(ListView):
                     cell = objects_dict.get(key)
                 line.append(cell)
             table.append(line)
-        print(table)
-        context = {'table': table}
+        context = {'table': table, 'request': self.request}
         return super(MultipleObjectMixin, self).get_context_data(**context)
 
 
@@ -115,6 +120,15 @@ class ShiftCreate(CreateView):
     form_class = ShiftForm
     model = Shift
 
+    def form_valid(self, form):
+        form.save()
+        message = json.dumps({"status": True, "message": 'Success'})
+        return HttpResponse("%s" % message)
+
+    def form_invalid(self, form):
+        message = json.dumps({"status": False, "message": form.errors.as_ul()})
+        return HttpResponse("%s" % message)
+
 
 def set_timezone(request):
     """
@@ -129,3 +143,5 @@ def set_timezone(request):
         return redirect('/')
     else:
         return render(request, 'shifts/set_timezone.html', {'timezones': pytz.common_timezones})
+
+

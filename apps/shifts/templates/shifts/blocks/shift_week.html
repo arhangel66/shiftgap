@@ -1,7 +1,14 @@
 
-<div class="shift">
-
-    <div class="shift_head"><div style="padding:2px">{{ shift.employee.position }}</div></div>
-    <div class="shift_body"><div style="padding:2px">{{ shift.start_time|date:"g:iA" }} - {{ shift.end_time|date:"g:iA" }}</div></div>
+<div class="b-shift">
+    {{ request.user }}
+    <div class="b-shift__head">
+        <div class="b-head">
+            <div class="b-head-text" style="padding:2px">{{ shift.employee.position }}</div>
+        </div>
+    </div>
+    <div class="b-shift_body">
+        <div class="b-body">
+            <div class="b-body-text">{{ shift.start_time|date:"g:iA" }} - {{ shift.end_time|date:"g:iA" }}</div>
+        </div>
     </div>
 </div>

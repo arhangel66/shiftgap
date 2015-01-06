@@ -10,21 +10,26 @@ class Organization(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name of organization")
     timezone = models.CharField(max_length=100, verbose_name="Timezone of organization", default="America/Chicago")
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s" % self.name
 
     def get_list_of_users(self):
         users = UserAccount.objects.filter(organization=self.id)
         return users
 
+from pytz import common_timezones
+tz_choces = []
+for tz in common_timezones:
+    tz_choces.append((tz, tz))
+
 
 class UserAccount(User):
     organization = models.ForeignKey(Organization, blank=True, null=True, verbose_name="Organization")
     position = models.CharField(max_length=100, blank=True, null=True, default="Salesperson")
-    timezone = models.CharField(max_length=100, verbose_name="Timezone", default="America/Chicago")
+    timezone = models.CharField(max_length=100, verbose_name="Timezone", default="Europe/London", choices=tz_choces)
 
-    def __unicode__(self):
-        return u"%s %s" % (self.organization, self.first_name)
+    def __str__(self):
+        return u"%s %s %s" % (self.organization, self.last_name, self.first_name)
 
     def show(self):
         return """<div class="" style=''>
