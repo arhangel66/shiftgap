@@ -19,12 +19,16 @@
         <li class="active"></li>
 
           </ul>
-
-            {% if request.user.id %}
-                <div class="navbar-form navbar-right" role="form" style="color:#fff">{{ request.user }} ({{ request.user.organization }})<a href="{% url 'persons:logout' %}">Logout</a></div>
-            {% else %}
-                <div class="navbar-form navbar-right" role="form" style="color:#fff"><a href="{% url 'persons:user_create' %}">Sing Up</a></div>
-            {% endif %}
+        {% load tz %}
+        {% get_current_timezone as TIME_ZONE %}
+        {% if request.user.id %}
+        <div class="navbar-form navbar-right" style="color:#fff">{{ TIME_ZONE }} <a href="{% url 'persons:user_update' request.user.id %}">change</a></div>
+        {% endif %}
+        {% if request.user.id %}
+            <div class="navbar-form navbar-right" role="form" style="color:#fff">{{ request.user }} <a href="{% url 'persons:logout' %}">Logout</a></div>
+        {% else %}
+            <div class="navbar-form navbar-right" role="form" style="color:#fff"><a href="{% url 'persons:user_create' %}">Sing Up</a></div>
+        {% endif %}
         </div><!--/.navbar-collapse -->
     </div>
 </div>

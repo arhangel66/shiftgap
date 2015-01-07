@@ -3,12 +3,13 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
+from django.utils.decorators import method_decorator
 from django.views.generic.list import MultipleObjectMixin
 import pytz
 
 import simplejson as json
 from django.shortcuts import render, redirect, render_to_response
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
@@ -37,7 +38,6 @@ def get_list_days_of_week(dat=datetime.datetime.now(tz=pytz.utc)):
         d = dat + datetime.timedelta(days=i)
         list_of_dates.append(d)
     return list_of_dates
-
 
 
 class ShiftListing(ListView):
@@ -88,21 +88,6 @@ class ShiftListing(ListView):
         context = {'table': table, 'request': self.request}
         return super(MultipleObjectMixin, self).get_context_data(**context)
 
-
-    # def post(self, request, *args, **kwargs):
-    #     try:
-    #         import datetime
-    #
-    #         s = Shift.objects.create(
-    #             # employee=self.request.POST['employee_name'],
-    #             start_time=datetime.datetime(2014, 12, 30, 17, 0, 0, 0, tzinfo=pytz.timezone('UTC')),
-    #             end_time=datetime.datetime(2014, 12, 30, 23, 0, 0, 0, tzinfo=pytz.timezone('UTC'))
-    #         )
-    #         return redirect(s.get_absolute_url())
-    #     except ValidationError or IntegrityError as e:
-    #         messages.warning(request, 'Invalid input ' + e.__str__())
-    #         return redirect(reverse('shifts:shift_list'))
-
     def get_dates(self):
         dates = get_list_days_of_week()
         date_list = [None]
@@ -130,18 +115,24 @@ class ShiftCreate(CreateView):
         return HttpResponse("%s" % message)
 
 
-def set_timezone(request):
-    """
-    Set timezone to the organization
-    :param request:
-    :return:
-    """
-    if request.method == 'POST':
-        request.session['django_timezone'] = request.POST['timezone']
-        print(request.session['django_timezone'])
-        print(type(request.session['django_timezone']))
-        return redirect('/')
-    else:
-        return render(request, 'shifts/set_timezone.html', {'timezones': pytz.common_timezones})
+class ShiftUpdate(UpdateView):
+    form_class = ShiftForm
+    model = Shift
+
+    def form_valid(self, form):
+        form.save()
+        message = json.dumps({"status": True, "message": 'Success'})
+        return HttpResponse("%s" % message)
+
+    def form_invalid(self, form):
+        message = json.dumps({"status": False, "message": form.errors.as_ul()})
+        return HttpResponse("%s" % message)
 
 
+class ShiftDelete(DeleteView):
+    model = Shift
+    success_url = '/shifts/'
+
+    # @method_decorator(login_required)
+    # def dispatch(self, request, *args, **kwargs):
+    #     super(ItemDelete, self).dispatch(request, *args, **kwargs)

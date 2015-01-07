@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager, AbstractBaseUser
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.template.loader import get_template
@@ -27,6 +27,8 @@ class UserAccount(User):
     organization = models.ForeignKey(Organization, blank=True, null=True, verbose_name="Organization")
     position = models.CharField(max_length=100, blank=True, null=True, default="Salesperson")
     timezone = models.CharField(max_length=100, verbose_name="Timezone", default="Europe/London", choices=tz_choces)
+
+    objects = UserManager()
 
     def __str__(self):
         return u"%s %s %s" % (self.organization, self.last_name, self.first_name)

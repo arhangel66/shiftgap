@@ -39,6 +39,16 @@
     </div>
     <input type="submit" value="Submit" class="btn btn-primary">
 </form>
+    {% if form.start_time.value %}<br>or<br> <a href="#" class="delete" onclick="$('.hidden_delete').show(); $(this).hide(); return false; ">Delete this shift</a>
+    <div class="hidden_delete" style="display: none">
+        type 'delete' in this field and click "Delete" button.
+        <form action="{% url 'shifts:shift_delete' shift.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="type 'delete' in this field" pattern="[delete]{6}"> <button class="btn btn-danger">delete</button>
+        </form>
+    </div>
+    {% endif %}
+
 {% endblock content %}
 
 {% block after %}
@@ -58,6 +68,5 @@
             minuteStep: 5
         });
     </script>
-
 
 {% endblock after %}

@@ -1,0 +1,12 @@
+{% extends "__base.html" %}
+{% load tz %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <button>Удалить</button>
+</form>
+{% endblock %}

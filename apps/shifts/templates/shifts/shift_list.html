@@ -105,6 +105,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
+        <div class="save_url" style="display: none;"></div>
       <div class="modal-body">
 <div class="alert alert-success">
   <a href="#" class="alert-link">...</a>
@@ -122,18 +123,22 @@ $().ready(function() {
     $("body").delegate(".load_page", "click", function() {
             var $modal_body = $('div.modal-body');
             var $modal_title = $('h4.modal-title');
+            var $save_url = $('div.save_url');
             var url = $(this).attr('load_page');
+            var title = $(this).attr('title');
             $.get(url,
                 function(data) {
-                    $modal_title.html($(this).attr('title'));
+                    $modal_title.html(title);
                     $modal_body.html(data);
+                    $save_url.html(url);
                 })
-        })
+    });
 
     $("div.modal").delegate("form#shift_form", "submit", function() {
 
        var inp_date = $('#shift_form').serialize();
-        url = "{% url 'shifts:shift_create' %}"
+{#        url = "{% url 'shifts:shift_create' %}";#}
+        url = $('div.save_url').text();
         $.post(url, inp_date,
                 function(data) {
                     if (data.status == true) {
@@ -147,8 +152,7 @@ $().ready(function() {
                 }, 'json');
 
         return false
-    })
-
+    });
 })
 </script>
 {% endblock after %}

@@ -33,11 +33,11 @@ class ShiftsTest(TestCase):
     #     self.assertEqual(request.session['django_timezone'] == 'Canada/Mountain')
 
     # since we can't test the middleware might as well test the view
-    def test_set_timezone_returns_correct_html(self):
-        from apps.shifts.views import set_timezone
-        found = resolve(reverse('shifts:set_timezone'))
-        self.assertEqual(found.func, set_timezone)
-        self.assertEqual(found.func, set_timezone)
+    # def test_set_timezone_returns_correct_html(self):
+    #     from apps.shifts.views import set_timezone
+    #     found = resolve(reverse('shifts:set_timezone'))
+    #     self.assertEqual(found.func, set_timezone)
+    #     self.assertEqual(found.func, set_timezone)
 
     # def test_can_save_shift(self):
     #     from django.utils import timezone
