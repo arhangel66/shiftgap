@@ -7,35 +7,76 @@
 {% block content %}
     <style>
         .brown{color:#56242d; font-size:12px; font-weight: bold;white-space:nowrap;}
-        .b-shift{background-color:#cdd3af; font-size:10px; color:#7a795b; border:1px solid #7a795b}
+        .b-shift{background-color:#cdd3af; font-size:10px; color:#7a795b; border:1px solid #7a795b; margin:2px;}
         .b-shift__head{white-space:nowrap; background-color: #b7bf8e}
         .b-shift_body{white-space:nowrap;}
         .b-body-text {padding:2px}
         .b-head-text {padding:2px}
     </style>
     <div class="container-fluid">
-    <div class="col-md-10">
+    <div class="col-md-12">
     <h2>Upcoming Shifts</h2>
-        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-filter">
+        <form method="post" style="margin-bottom:10px;">
+            {% csrf_token %}
+            <div class="row">
+            <div class="col-md-3">
+                <div class="input-group date form_date col-md-12" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" >
+                    {{ list_form.start_date }}
+                    <span class="input-group-addon"  onclick="$(this).prev().val('')"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+
+                <div class="input-group date form_date col-md-12" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" >
+                    {{ list_form.end_date }}
+                    <span class="input-group-addon"  onclick="$(this).prev().val('')"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+            {{ list_form.employee }}
+            {{ list_form.organization }}
+            </div>
+
+            <div class="col-md-2">
+            <label for="id_type_view">Type of View</label>
+            {{ list_form.type_view }}
+            </div>
+
+            <div class="col-md-2">
+            <button class="btn btn-primary">Filter</button>
+            </div>
+            </div>
+
+        </form>
+        <style>
+            .mytable td{padding:0px !important; height: 100px;}
+        </style>
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-filter mytable">
         {% for line in table %}
             {% if forloop.first %}
                 <thead>
                     {% for cell in line %}
-                        <th class="brown">{% if cell %}{{ cell }}{% endif %}</th>
+                        <th class="brown">{% if cell %}{% autoescape off %}{{ cell.content }}{% endautoescape %}{% endif %}</th>
                     {% endfor %}
                 </thead>
             {% else %}
             <tr>
             {% for cell in line %}
-                <td>
+
                     {% if forloop.first %}
-                        {% autoescape off %}{{ cell.show }}{% endautoescape %}
+                       <th class="brown"> {% autoescape off %}{{ cell.content }}{% endautoescape %} </th>
                     {% else %}
-                        {% for zn in cell %}
-                            {% autoescape off %}{{ zn.show }}{% endautoescape %}<br>
+                        <td>
+                        {% if cell.title %}
+                            <div style="background-color: #f0f0f0; font-size:10px; font-weight: bold;">{{ cell.title }}</div>
+                        {% endif %}
+                        {% for zn in cell.content %}
+                            {% autoescape off %}{{ zn.show }}{% endautoescape %}
                         {% endfor %}
+                         </td>
                     {% endif %}
-                </td>
+
             {% endfor %}
             </tr>
             {% endif %}
@@ -54,48 +95,12 @@
 {#    {% endfor %}#}
 
     </div>
-    <div class="col-md-2">
-        <form action="" method="POST">
-            {% csrf_token %}
-            <input name="employee_name" id="id_employee_name" placeholder="Enter employee's name..." />
-        </form>
-    </div>
 
     </div>
 
 
 
-    <!-- bye bye modal
-    Button trigger modal
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addShiftModal">
-        Add Shift
-    </button>
 
-     Modal
-    <div class="modal fade" id="addShiftModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Add a New Shift</h4>
-                </div>
-                <form action="" method="post">
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" value="Add Shift" class="btn btn-primary">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <-->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg load_page" data-toggle="modal" data-target="#myModal" load_page="{% url 'shifts:shift_create' %}" title="new shift">
-  new shift
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -107,9 +112,9 @@
       </div>
         <div class="save_url" style="display: none;"></div>
       <div class="modal-body">
-<div class="alert alert-success">
-  <a href="#" class="alert-link">...</a>
-</div>
+        <div class="alert alert-success">
+          <a href="#" class="alert-link">...</a>
+        </div>
       </div>
     </div>
   </div>
@@ -153,6 +158,23 @@ $().ready(function() {
 
         return false
     });
+    $('.form_date').datetimepicker({
+            //language:  'fr',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1,
+            minuteStep: 5,
+            minView: 2
+        });
 })
+
+
+
+
+
 </script>
 {% endblock after %}

@@ -41,6 +41,3 @@ class PersonsTest(TestCase):
         response = c.get(reverse('shifts:shift_list'))
         self.assertEquals(response.status_code, 200)
 
-
-    def test_fake_creation(self):
-        self.assertEqual(False, True)

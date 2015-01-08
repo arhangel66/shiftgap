@@ -1,0 +1,22 @@
+{% load tz %}
+<div class="b-shift">
+    {{ request.user }}
+    <div class="b-shift_body">
+        <div class="b-body">
+{#            <div class="b-body-text">Europe/Moscow: 12:30 - 12:50</div>#}
+
+{#            {% localtime off %}#}
+{#            <div class="b-body-text">UTC: {{ shift.start_time|date:"g:iA" }} - {{ shift.end_time|date:"g:iA" }}</div>#}
+{#            {% endlocaltime %}#}
+
+{#            {% get_current_timezone as TIME_ZONE %}#}
+{#            {% localtime on %}#}
+            <div class="b-body-text">
+             {{ shift.start_time|date:"g:iA" }} - {{ shift.end_time|date:"g:iA" }} {{ shift.employee.get_names }}
+            <span data-toggle="modal" data-target="#myModal" load_page="{% url 'shifts:shift_update' shift.id %}" title="Update shift" class="glyphicon glyphicon-pencil load_page"
+                  style="float:right; cursor: pointer; position: absolute;top: inherit;margin-left: -10px; background-color: #cdd3af;" shift_id="{{ shift.id }}"></span>
+            </div>
+{#            {% endlocaltime %}#}
+        </div>
+    </div>
+</div>

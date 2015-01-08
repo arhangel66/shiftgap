@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'apps.middleware.users.users_middleware.UsersMiddleware',
     'apps.middleware.timezone.timezone_middleware.TimezoneMiddleware',
 )
 
