@@ -131,7 +131,7 @@ class ShiftListing(ListView):
             }
 
             key = "%s_%s" % (params.get(string), params.get(row))
-            objects_dict.setdefault(key, []).append(shift)
+            objects_dict.setdefault(key, []).append(shift.show(datas['type_view']))
 
         params = {
             'user': self.get_users(objects),

@@ -72,7 +72,7 @@
                             <div style="background-color: #f0f0f0; font-size:10px; font-weight: bold;">{{ cell.title }}</div>
                         {% endif %}
                         {% for zn in cell.content %}
-                            {% autoescape off %}{{ zn.show }}{% endautoescape %}
+                            {% autoescape off %}{{ zn }}{% endautoescape %}
                         {% endfor %}
                          </td>
                     {% endif %}

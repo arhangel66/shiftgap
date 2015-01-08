@@ -98,8 +98,10 @@ class Shift(models.Model):
     def get_absolute_url(self):
         return reverse('shifts:shift_list')
 
-    def show(self):
+    def show(self, type):
         from django.template import Template, Context
-        t = get_template('shifts/blocks/shift_week.html')
-        t = get_template('shifts/blocks/shift_month.html')
+        if 'user' in type.split('-'):
+            t = get_template('shifts/blocks/shift_week.html')
+        else:
+            t = get_template('shifts/blocks/shift_month.html')
         return t.render(Context({'shift': self}))
