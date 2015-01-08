@@ -29,7 +29,7 @@ class ShiftForm(ModelForm):
 
     def clean(self):
         super(ShiftForm, self).clean()
-        self._errors["employee"] = self.error_class([u'You can choose only yourself or employee of your company'])
+        # self._errors["employee"] = self.error_class([u'You can choose only yourself or employee of your company'])
         return self.cleaned_data
 
 
